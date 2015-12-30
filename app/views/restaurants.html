@@ -1,0 +1,112 @@
+
+<md-list>
+    <md-list-item class="md-1-line">
+        <md-content layout-padding>
+            <form name="restaurantForm">
+                <md-input-container>
+                    <label>Call Center Id</label>
+                    <input name="callCenterId" ng-model="callCenterId" required md-maxlength="20">
+                    <div ng-messages="restaurantForm.callCenterId.$error" ng-show="restaurantForm.callCenterId.$dirty">
+                        <div ng-message="required">This is required!</div>
+                        <div ng-message="md-maxlength">That's too long!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>DNIS</label>
+                    <input name="dnis" ng-model="dnis" required md-maxlength="20">
+                    <div ng-messages="restaurantForm.dnis.$error" ng-show="restaurantForm.dnis.$dirty">
+                        <div ng-message="required">This is required!</div>
+                        <div ng-message="md-maxlength">That's too long!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-raised md-primary" type="submit" ng-disabled="restaurantForm.$invalid" ng-click="submit()"> Submit</md-button>
+                </md-input-container>
+            </form>
+        </md-content>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-list-item class="md-1-line" ng-show="restaurantForm.$submitted && !restaurantForm.$invalid">
+        <md-content layout-padding>
+            <h5>Response:</h5>
+            <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="determinate" value="70" ng-show="!loginResponse.Restaurant && !loginResponse.Message"></md-progress-circular>
+            </div>
+            <table class="table table-bordered">
+                <tr ng-show="loginResponse.Restaurant">
+                    <th>Restaurant Id</th>
+                    <th>Contact</th>
+                    <th>Contact Email</th>
+                    <th>Status Id</th>
+                    <th>UnitNumber</th>
+                    <th>UnitName</th>
+                    <th>Address1</th>
+                    <th>Address2</th>
+                    <th>Phone1</th>
+                    <th>Phone2</th>
+                    <th>BussinessNum</th>
+                    <th>City</th>
+                    <th>St</th>
+                    <th>PostalCode</th>
+                    <th>ConceptId</th>
+                    <th>Logo</th>
+                    <th>AddItemLogo</th>
+                    <th>NotifyEmail</th>
+                    <th>Location Description</th>
+                    <th>POSType</th>
+                    <th>PromoImage</th>
+                    <th>DefaultImage</th>
+                    <th>NumberItemsAlert</th>
+                    <th>DollarAmountAlert</th>
+                    <th>IsCallCenter</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>SuggestiveSaleEnabled</th>
+                    <th>CountryCode</th>
+                    <th>OrderSendType</th>
+                    <th>PickupItemCountSensitiveAdjustmentThreshold</th>
+                    <th>DrivingDirectionsURL</th>
+                </tr>
+
+                <tr ng-show="loginResponse.Restaurant">
+                    <td>{{ loginResponse.Restaurant.RestaurantId }}</td>
+                    <td>{{ loginResponse.Restaurant.Contact }}</td>
+                    <td>{{ loginResponse.Restaurant.ContactEmail }}</td>
+                    <td>{{ loginResponse.Restaurant.StatusId }}</td>
+                    <td>{{ loginResponse.Restaurant.UnitNumber }}</td>
+                    <td>{{ loginResponse.Restaurant.UnitName }}</td>
+                    <td>{{ loginResponse.Restaurant.Address1 }}</td>
+                    <td>{{ loginResponse.Restaurant.Address2 }}</td>
+                    <td>{{ loginResponse.Restaurant.Phone1 }}</td>
+                    <td>{{ loginResponse.Restaurant.Phone2 }}</td>
+                    <td>{{ loginResponse.Restaurant.BussinessNum }}</td>
+                    <td>{{ loginResponse.Restaurant.City }}</td>
+                    <td>{{ loginResponse.Restaurant.St }}</td>
+                    <td>{{ loginResponse.Restaurant.PostalCode }}</td>
+                    <td>{{ loginResponse.Restaurant.ConceptId }}</td>
+                    <td>{{ loginResponse.Restaurant.Logo }}</td>
+                    <td>{{ loginResponse.Restaurant.AddItemLogo }}</td>
+                    <td>{{ loginResponse.Restaurant.NotifyEmail }}</td>
+                    <td>{{ loginResponse.Restaurant.LocationDescription }}</td>
+                    <td>{{ loginResponse.Restaurant.POSType }}</td>
+                    <td>{{ loginResponse.Restaurant.PromoImage }}</td>
+                    <td>{{ loginResponse.Restaurant.DefaultImage }}</td>
+                    <td>{{ loginResponse.Restaurant.NumberItemsAlert }}</td>
+                    <td>{{ loginResponse.Restaurant.DollarAmountAlert }}</td>
+                    <td>{{ loginResponse.Restaurant.IsCallCenter }}</td>
+                    <td>{{ loginResponse.Restaurant.Latitude }}</td>
+                    <td>{{ loginResponse.Restaurant.Longitude }}</td>
+                    <td>{{ loginResponse.Restaurant.CountryCode }}</td>
+                    <td>{{ loginResponse.Restaurant.OrderSendType }}</td>
+                    <td>{{ loginResponse.Restaurant.PickupItemCountSensitiveAdjustmentThreshold }}</td>
+                    <td>{{ loginResponse.Restaurant.DrivingDirectionsURL }}</td>
+
+                </tr>
+                <tr ng-show="loginResponse.Message" style="color:red">
+                    <td>{{ loginResponse.Message }}</td>
+                </tr>
+            </table>
+        </md-content>
+    </md-list-item>
+
+</md-list>

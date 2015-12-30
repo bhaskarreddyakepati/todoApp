@@ -1,95 +1,136 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body ng-app="mytodoApp">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<meta charset="utf-8">
+<title>API Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+<link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
+<!-- endbower -->
+<link rel="stylesheet" href="styles/login.css">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
+</head>
+<body layout="column" ng-controller="HomeController">
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="bower_components/angular-ui-sortable/sortable.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+<!-- endbower -->
 
-            <a class="navbar-brand" href="#/">mytodo</a>
-          </div>
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+<script src="scripts/app.js"></script>
+<script src="scripts/factories/propertiesfactory.js"></script>
+<script src="scripts/factories/commonfactory.js"></script>
+<script src="scripts/factories/httpservicesfactory.js"></script>
+<script src="scripts/controllers/homecontroller.js"></script>
+<script src="scripts/controllers/logincontroller.js"></script>
+<script src="scripts/controllers/restaurantscontroller.js"></script>
+<script src="scripts/controllers/customerscontroller.js"></script>
+<script src="scripts/controllers/customeraddresscontroller.js"></script>
 
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
+
+
+<md-toolbar layout="row">
+  <md-button class="menu" hide-gt-sm ng-click="toggleList()" aria-label="Show User List">
+    <md-icon md-svg-src="assets/menu.svg"></md-icon>
+  </md-button>
+  <h1>{{properties.menu}}</h1>
+  <div layout="column" flex-sm="100" flex="33" layout-align="center center">
+    <md-input-container>
+      <md-select name="languagecode" ng-model="language" placeholder="Select language" ng-change="langChange(language)">
+        <md-option ng-repeat="language in languages" value="{{language.Code}}">
+          {{language.Name}}
+        </md-option>
+      </md-select>
+      <div ng-messages="customeraddresssForm.countryid.$error" ng-show="customeraddresssForm.countryid.$dirty">
+        <div ng-message="required">This is required!</div>
+      </div>
+    </md-input-container>
+  </div>
+</md-toolbar>
+
+<!-- Container #2 -->
+<div flex layout="row">
+
+  <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+    <md-list>
+      <md-list-item class="md-1-line sidenavapp">
+        <div class="md-list-item-text" layout="column">
+          <a href="#/loginAgent">{{properties.loginagent}}</a>
         </div>
-      </div>
-    </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/restaurantDNIS">{{properties.getrestaurantsbydns}}</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/customerANI">Get Customers By ANI</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/createcustomer">Create Customer</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/updatecustomer">Update Customer</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/deletecustomer">Delete Customer</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/createcustomeraddress">Create Customer Address</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/updatecustomeraddress">Update Customer Address</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-1-line sidenavapp" >
+        <div class="md-list-item-text" layout="column">
+          <a href="#/deletecustomeraddress">Delete Customer Address</a>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
 
-    <div class="container">
-    <div ng-view=""></div>
-    </div>
+    </md-list>
+  </md-sidenav>
 
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
+  <md-content flex id="content">
+    <div ng-view></div>
+  </md-content>
 
+</div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
-
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <!-- endbuild -->
 </body>
 </html>

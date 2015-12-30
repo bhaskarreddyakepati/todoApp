@@ -1,0 +1,206 @@
+
+<md-list>
+    <md-list-item class="md-1-line">
+        <md-content layout-padding>
+            <form name="customerForm">
+                <md-input-container>
+                    <label>ani</label>
+                    <input name="ani" ng-model="ani" required md-maxlength="20">
+                    <div ng-messages="customerForm.ani.$error" ng-show="customerForm.ani.$dirty">
+                        <div ng-message="required">This is required!</div>
+                        <div ng-message="md-maxlength">That's too long!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-raised md-primary" type="submit" ng-disabled="customerForm.$invalid" ng-click="customersByANI()"> Submit</md-button>
+                </md-input-container>
+            </form>
+        </md-content>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-list-item class="md-1-line" ng-show="customerForm.$submitted && !customerForm.$invalid">
+        <md-content layout-padding>
+            <h5>Response:</h5>
+            <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="determinate" value="70" ng-show="!loginResponse.Customers && !loginResponse.Message"></md-progress-circular>
+            </div>
+                <table class="table table-bordered">
+                    <tr ng-show="loginResponse.Customers">
+                        <th>#</th>
+                        <th>Customer Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Notes</th>
+                        <th>Addresses</th>
+                    </tr>
+                    <tr ng-show="loginResponse.Customers" ng-repeat="customer in loginResponse.Customers track by $index">
+                        <td>{{$index + 1}}</td>
+                        <td>{{customer.Id}}</td>
+                        <td>{{customer.FirstName}}</td>
+                        <td>{{customer.LastName}}</td>
+                        <td>{{customer.Phone}}</td>
+                        <td>{{customer.Email}}</td>
+                        <td>{{customer.Notes}}</td>
+                        <td> <md-button ng-click="clickForAddresses(customer.Id)" ng-show="customer.Addresses.length>0">
+                            {{customer.Addresses.length}}
+                        </md-button><p align="center" ng-show="customer.Addresses.length==0">{{customer.Addresses.length}}</p></td>
+                    </tr>
+                <tr ng-show="loginResponse.Message" style="color:red">
+                    <td>{{ loginResponse.Message }}</td>
+                </tr>
+            </table>
+            <table class="table table-bordered table-hover" ng-show="clickForAddress">
+                <tr>
+                    <th>#</th>
+                    <th>Customer Id</th>
+                    <th>Address Id</th>
+                    <th>Address1</th>
+                    <th>Address2</th>
+                    <th>Address3</th>
+                    <th>PostalCode</th>
+                    <th>City</th>
+                    <th>Phone1</th>
+                    <th>Phone2</th>
+                    <th>Name</th>
+                    <th>Country Id</th>
+                    <th>Country Code</th>
+                    <th>Country Name</th>
+                    <th>State Id</th>
+                    <th>State Code</th>
+                    <th>State Name</th>
+                    <th>AddressType Id</th>
+                    <th>AddressType Name</th>
+                    <th>Instructions</th>
+                </tr>
+                <tr ng-repeat="customerInfo in loginResponse.Customers " ng-show="customerInfo.Id == customerIdValuestoDisplay">
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses track by $index">
+                            <p>{{$index+1}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                                <p>{{address.CustomerId}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Id}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Address1}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Address2}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Address3}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.PostalCode}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.City}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Phone1}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Phone2}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Name}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Country.Id}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Country.Code}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Country.Name}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.State.Id}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.State.Code}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.State.Name}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.AddressType.Id}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.AddressType.Name}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                    <td>
+                        <md-list-item class="md-1-line" ng-repeat="address in customerInfo.Addresses">
+                            <p>{{address.Instructions}}</p>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </td>
+                </tr>
+
+                </table>
+            </table>
+        </md-content>
+    </md-list-item>
+
+</md-list>
